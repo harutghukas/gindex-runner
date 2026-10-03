@@ -1,0 +1,27 @@
+name: Verify private crawler access
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out private price-comparison repository
+        uses: actions/checkout@v4
+        with:
+          repository: harutghukas/price-comparison
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          ref: main
+          path: price-comparison
+          persist-credentials: false
+
+      - name: Verify required crawler files exist
+        run: |
+          test -f price-comparison/requirements.txt
+          test -f price-comparison/crawler/run.py
+          test -f price-comparison/scripts/local_staging/run_all_stores.py
+          echo "Private repository access is working."
