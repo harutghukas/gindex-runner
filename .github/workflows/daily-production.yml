@@ -2,8 +2,8 @@ name: Daily production crawler
 
 on:
   schedule:
-    # 05:00 UTC = 09:00 Yerevan
-    - cron: '0 5 * * *'
+        # 09:50 UTC = 13:50 Yerevan
+    - cron: '50 9 * * *'
   workflow_dispatch:
 
 concurrency:
